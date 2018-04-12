@@ -38,7 +38,7 @@ class FeatureExtractor(object):
         for n, nbrsdict in cfg.adjacency():
             if len(list(nbrsdict)) >= 2:
                 graph_for_tarjan_algorithm[n] = list(nbrsdict)
-        return cfg.graph.number_of_edges() - len(cfg.graph) + 2 * len(tarjan.tarjan(graph_for_tarjan_algorithm)
+        return cfg.graph.number_of_edges() - len(cfg.graph) + 2 * len(tarjan.tarjan(graph_for_tarjan_algorithm))
 
 
     def radare2_cc_estimation(self, use_accurate=False):
