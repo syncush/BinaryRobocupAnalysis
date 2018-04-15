@@ -48,8 +48,8 @@ class FeatureExtractor(object):
         for func_addr, functionObject in cfg.kb.functions.iteritems():
             cc = r2.cmdj("afCc@" + hex(func_addr))
             list.append((functionObject.name, cc))
-
-        return {"max": max(list), "sum":sum(list), "list": list}
+        ccList = [y for _, y in list]
+        return {"max": max(ccList), "sum": sum(ccList), "list": list}
 
     def extract_features_from_angr(self, use_accurate=False):
         cfg = self.__get_cfg__(use_accurate)
