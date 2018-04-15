@@ -40,7 +40,6 @@ class FeatureExtractor(object):
                 graph_for_tarjan_algorithm[n] = list(nbrsdict)
         return cfg.graph.number_of_edges() - len(cfg.graph) + 2 * len(tarjan.tarjan(graph_for_tarjan_algorithm))
 
-
     def radare2_cc_estimation(self, use_accurate=False):
         cfg = self.__get_cfg__(use_accurate)
         r2 = r2pipe.open(self._file_path)
@@ -49,7 +48,8 @@ class FeatureExtractor(object):
         for func_addr, functionObject in cfg.kb.functions.iteritems():
             cc = r2.cmdj("afCc@" + hex(func_addr))
             list.append((functionObject.name, cc))
-        return list
+
+        return {"max": max(list), "sum":sum(list), "list": list}
 
     def extract_features_from_angr(self, use_accurate=False):
         cfg = self.__get_cfg__(use_accurate)
