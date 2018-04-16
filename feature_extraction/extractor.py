@@ -77,3 +77,18 @@ class FeatureExtractor(object):
             if nodeInGraph.block is not None:
                 block_instructions_info["max"] = max(block_instructions_info["max"], len(nodeInGraph.block.instruction_addrs))
         return [sum_blocks_sizes_info, sum_sys_calls_info, looping_times_info, has_return_info, block_instructions_info]
+
+    def analyze_everything(self, use_accurate_cfg=False):
+        f_analysis = self.extract_features_from_angr(use_accurate_cfg)
+        s_analysis = self.radare2_cc_estimation(use_accurate_cfg)
+        t_analysis = self.get_complex_complete_mccabe_complexity_angr(use_accurate_cfg)
+        fourth_analysis = self.get_simple_complete_mccabe_complexity_angr(use_accurate_cfg)
+        return [f_analysis[0]["sum"], f_analysis[0]["max"], f_analysis[1]["sum"], f_analysis[1]["names"],
+                f_analysis[2]["sum"], f_analysis[2]["max"], f_analysis[3]["sum"], f_analysis[4]["max"], s_analysis,
+                t_analysis, fourth_analysis]
+
+    @staticmethod
+    def features_names_list():
+        return ["Cfg node size - sum", "Cfg node size - max", "system calls - count", "system calls - names",
+                "looping times - sum", "looping times - max", "Cfg node with return - count",
+                "Biggest Cfg node instruction count", "radare2", "complex McCabe", "simple McCabe"]
