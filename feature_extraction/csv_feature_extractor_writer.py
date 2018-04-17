@@ -8,7 +8,7 @@ def str2bool(v):
     return v.lower() in ("yes", "true", "t", "1")
 
 
-def write_to_csv(dir_to_analyze_path='/home/syncush/PycharmProjects/BinaryRobocupAnalysis/test', dst_csv_path='/home/syncush/Desktop', csv_file_name='BinaryRobocup', use_accurate=False):
+def write_to_csv(dir_to_analyze_path, dst_csv_path='/tmp', csv_file_name='BinaryRobocup', use_accurate=False):
     binaryPaths = []
     for (dirpath, dirnames, filenames) in walk(dir_to_analyze_path):
         temp = [dirpath + '/' + x for x in filenames]

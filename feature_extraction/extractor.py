@@ -1,4 +1,5 @@
 import angr
+import pickle
 import r2pipe
 import tarjan
 
@@ -94,3 +95,6 @@ class FeatureExtractor(object):
         return ["Cfg Node Size", "System Calls",
                 "Looping Times", "Cfg Node With Return", "Biggest Cfg Node Instruction",
                 "Radare2", "Complex McCabe", "Simple McCabe"]
+
+    def seralize_my_cfg(self, dst_path, output_file_name, use_accurate=False):
+        pickle.dump(self.__get_cfg__(use_accurate), open('/'.join([dst_path, output_file_name + 'bin']), "wb"), -1)
